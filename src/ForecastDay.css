@@ -1,30 +1,46 @@
-
-
 .forecast-day {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    background: #E0F2FE;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e0e0e0;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.forecast-day:last-child {
+    border-bottom: none;
 }
 
 .weather-icon {
     width: 50px;
-    height: 50px;
+    height: auto;
 }
 
-.date {
-    font-weight: bold;
+.date, .description, .temperature, .humidity, .wind, .pressure {
+    flex: 1;
+    padding: 0 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
 }
 
 .temperature {
-    color: #FF5722;
+    font-weight: bold;
+    color: #ff8c00;
 }
+@media (max-width: 768px) {
+    .forecast-day {
+        flex-direction: column;
+        padding: 15px 0;
+    }
 
-.humidity, .wind, .pressure {
-    font-size: 0.85rem;
+    .weather-icon {
+        margin-bottom: 10px;
+    }
+
+    .date, .description, .temperature, .humidity, .wind, .pressure {
+        flex-basis: 100%;
+        padding: 5px 0;
+        text-align: center;
+    }
 }
