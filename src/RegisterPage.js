@@ -1,34 +1,39 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { auth } from './firebaseConfig';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import "./LoginPage.css";
+// src/RegisterPage.js
 
-function LoginPage() {
+import React, { useState } from 'react';
+import { useNavigate,Link } from 'react-router-dom';
+import "./LoginPage.css";
+import { auth } from './firebaseConfig';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
+function RegisterPage() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-
-    const handleLogin = () => {
-        signInWithEmailAndPassword(auth, email, password)
+    const handleRegister = () => {
+        createUserWithEmailAndPassword(auth, username, password)
             .then((userCredential) => {
+
                 localStorage.setItem('isLoggedIn', 'true');
                 navigate('/home');
             })
             .catch((error) => {
-                alert('Přihlášení se nezdařilo, zkontrolujte email a heslo.');
+
+
+                alert('Účet už byl vytvořen, zadejte jiný email.');
+
             });
     };
 
     return (
         <div className="login-container">
-            <h1>Přihlášení</h1>
+            <h1>Registrace</h1>
             <input
                 className="login-input"
                 type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Email"
             />
             <input
@@ -38,11 +43,10 @@ function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Heslo"
             />
-            <button className="login-button" onClick={handleLogin}>Přihlášení</button>
-            <Link id="toRegister" to="/register" className="login-link">Nemáte účet? Registrace</Link>
-
+            <button className="login-button" onClick={handleRegister}>Registrovat</button>
+            <Link id="toRegister"   to="/login" className="login-link">Už máte účet? Příhlášení</Link>
         </div>
     );
 }
 
-export default LoginPage;
+export default RegisterPage;
